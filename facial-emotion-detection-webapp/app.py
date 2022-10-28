@@ -1,16 +1,16 @@
 import base64
 import io
-import os
 from flask import Flask, render_template, request
 import cv2
 from keras.models import load_model
 import numpy as np
 from PIL import Image
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 1
-app.config['UPLOAD_FOLDER'] = "/uploads"
 
 
 @app.route('/')
@@ -20,9 +20,18 @@ def index():
 
 @app.route('/after', methods=['GET', 'POST'])
 def after():
-    img = request.files['file1']
+    # img = request.files['file1']
 
-    img.save(os.path.join(app.config['UPLOAD_FOLDER'], img.filename))
+    # img=base64.decodestring(sagnik_string)
+
+    # sagnik_string = request.get_json()["image"]
+
+    sagnik_string = request.get_json(force=True)["image"]
+
+    print(sagnik_string)
+
+    img = base64.b64decode(str(sagnik_string))
+    img = Image.open(io.BytesIO(img))
 
     img.save(r'file.jpeg')
 
@@ -68,12 +77,9 @@ def after():
 
     final_prediction = label_map[prediction]
 
-    im = Image.open(os.path.join(app.config['UPLOAD_FOLDER'], img.filename))
-    data = io.BytesIO()
-    im.save(data, "JPEG")
-    encoded_data = base64.b64encode(data.getvalue())
-
-    return render_template(r'after.html', data=final_prediction, img_data=encoded_data)
+    return {
+        "result": final_prediction
+    }
 
 
 if __name__ == "__main__":
