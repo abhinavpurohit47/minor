@@ -3,6 +3,8 @@ import "./App.css";
 // import Webcam from "react-webcam";
 // import Cam from "./WebcamCapture";
 import Home from "./components/Home/Home";
+import Title from "./components/Home/Title";
+import Upload from "./components/Upload";
 const App = () => {
   // let formData = new FormData();
   // const onFileChange = (e) => {
@@ -12,8 +14,14 @@ const App = () => {
   //   }
   // };
   return (
-    <div>
-      <Home />
+    <div className="flex flex-col ">
+      <div className="border-2 border-black p-5 m-10">
+      <Title />
+      <div className="flex flex-row w-full h-full justify-center ">
+        <Home />
+        <Upload />
+      </div>
+    </div>
     </div>
     // <div className="App border-2 p-10 m-10 shadow-lg">
     /* <div className=" flex flex-col items-center justify-center h-full w-full">

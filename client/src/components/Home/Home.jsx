@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Upload from "../Upload";
 import { WebcamCapture } from "../Webcam/Webcam";
 
 const Home = () => {
@@ -12,10 +13,9 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col text-center w-full m-0 ">
-      <h1 className="text-center align-middle font-bold text-xl p-5">
-        Fill up this form!
-      </h1>
+    <div className="">   
+    <div className="flex flex-row p-8 text-center m-0 ">
+     
       <div className="flex bg-gray-200 border-2 align-middle w-full h-full flex-col rounded-md p-5">
         <form className="form">
           <div className="flex flex-col">
@@ -26,6 +26,8 @@ const Home = () => {
           </button>
         </form>
       </div>
+      {/* <Upload /> */}
+    </div>
     </div>
   );
 };
