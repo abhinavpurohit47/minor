@@ -1,5 +1,6 @@
 import { React, useState } from "react";
 import axios from "axios";
+import { API_ENDPOINT } from "../../utils/constants";
 function Upload() {
   const [emotion, setEmotion] = useState("");
   const [createObjectURL, setCreateObjectURL] = useState(null);
@@ -9,9 +10,11 @@ function Upload() {
     const imageData = await convertBase64(file);
     console.log(imageData);
     axios
-      .post("http://localhost:5000/after", {
-        image: imageData.substring(22),
-      })
+      .get(
+        `${API_ENDPOINT}/after?base64Image=${encodeURIComponent(
+          imageData.substring(23)
+        )}`
+      )
       .then((response) => {
         console.log(response.data["result"]);
         setEmotion(response.data["result"]);

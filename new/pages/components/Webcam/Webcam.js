@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Webcam from "react-webcam";
 import axios from "axios";
+import { API_ENDPOINT } from "../../../utils/constants";
 
 const videoConstraints = {
   width: 220,
@@ -19,9 +20,11 @@ export const WebcamCapture = () => {
     const imageData = webcamRef.current.getScreenshot();
     console.log(imageData);
     axios
-      .post("http://localhost:5000/after", {
-        image: imageData.substring(22),
-      })
+      .get(
+        `${API_ENDPOINT}/after?base64Image=${encodeURIComponent(
+          imageData.substring(23)
+        )}`
+      )
       .then((response) => {
         console.log(response.data["result"]);
 

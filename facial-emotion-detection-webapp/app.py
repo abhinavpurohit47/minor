@@ -1,32 +1,43 @@
 import base64
 import io
-from flask import Flask, render_template, request
 import cv2
 from keras.models import load_model
 import numpy as np
 from PIL import Image
-from flask_cors import CORS
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
-app = Flask(__name__)
-CORS(app)
+app = FastAPI()
 
-app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 1
+origins = [
+    "*"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
-@app.route('/')
+@app.get("/")
 def index():
-    return render_template(r'index.html')
+    return {
+        "message": "Emotion Detection API"
+    }
 
 
-@app.route('/after', methods=['GET', 'POST'])
-def after():
+@app.get('/after')
+def after(base64Image: str):
     # img = request.files['file1']
 
     # img=base64.decodestring(sagnik_string)
 
     # sagnik_string = request.get_json()["image"]
 
-    sagnik_string = request.get_json(force=True)["image"]
+    sagnik_string = base64Image
 
     print(sagnik_string)
 
@@ -80,7 +91,3 @@ def after():
     return {
         "result": final_prediction
     }
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
