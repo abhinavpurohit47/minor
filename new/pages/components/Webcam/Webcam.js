@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Webcam from "react-webcam";
 import axios from "axios";
 
-const WebcamComponent = () => <Webcam />;
-
 const videoConstraints = {
   width: 220,
   height: 200,
@@ -42,7 +40,7 @@ export const WebcamCapture = () => {
             screenshotFormat="image/jpeg"
             width={220}
             videoConstraints={videoConstraints}
-          />
+          ></Webcam>
         ) : (
           <img src={image} alt="img" />
         )}

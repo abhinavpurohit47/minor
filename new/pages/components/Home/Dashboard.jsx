@@ -3,15 +3,6 @@ import Upload from "../Upload";
 import { WebcamCapture } from "../Webcam/Webcam";
 
 const Dashboard = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-
-  const submitForm = () => {
-    alert("Form submitted");
-    setName("");
-    setEmail("");
-  };
-
   return (
     <div className="">   
     <div className="flex flex-row p-8 text-center m-0 ">
