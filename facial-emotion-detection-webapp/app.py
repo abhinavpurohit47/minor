@@ -35,13 +35,13 @@ def after(base64Image: str):
 
     # img=base64.decodestring(sagnik_string)
 
-    # sagnik_string = request.get_json()["image"]
+    # abhinav_string = request.get_json()["image"]
 
-    sagnik_string = base64Image
+    abhinav_string = base64Image
 
-    print(sagnik_string)
+    print(abhinav_string)
 
-    img = base64.b64decode(str(sagnik_string))
+    img = base64.b64decode(str(abhinav_string))
     img = Image.open(io.BytesIO(img))
 
     img.save(r'file.jpeg')
